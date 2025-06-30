@@ -112,7 +112,7 @@ public partial class MainWindow : Window
     
     private async void LaunchButton_Click(object sender, RoutedEventArgs e)
     {
-        string launcherPath = Path.GetDirectoryName(Environment.ProcessPath ?? Assembly.GetExecutingAssembly().Location);
+        string launcherPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
         string gameDirectory = launcherPath;
         string renderer = RenderComboBox.SelectedItem?.ToString();
         bool useAvx = AvxCheckBox.IsChecked == true;
