@@ -24,7 +24,7 @@
     </Grid.RowDefinitions>
           
     <Border Grid.Column="0" Grid.ColumnSpan="2" Background="DarkSlateGray" Padding="10">
-      <TextBlock Text="STALKER LAUNCHER BY IVAN" 
+      <TextBlock Text="STALKER LAUNCHER BY Code1nBlood" 
                  FontSize="24" 
                  Foreground="White"
                  HorizontalAlignment="Center" />
