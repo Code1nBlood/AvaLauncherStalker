@@ -130,16 +130,49 @@ public partial class MainWindow : Window
         var args = new List<string>();
         string resolution = ResolutionComboBox.SelectedItem?.ToString();
         if (!string.IsNullOrWhiteSpace(resolution))
-            args.Add($"-res {resolution}");
+            args.Add($"-r {resolution}");
 
         string shadow = ShadowMapComboBox.SelectedItem?.ToString();
         if (!string.IsNullOrWhiteSpace(shadow))
-            args.Add($"-shadowmap {shadow}");
+            args.Add($"-shadow {shadow}");
         
-        if (DevCheckBox.IsChecked == true) args.Add("-dev");
-        if (ClearCacheCheckBox.IsChecked == true) args.Add("-nocache");
-        if (ReloadSoundsCheckBox.IsChecked == true) args.Add("-reload_sounds");
-        if (DefaultUserLtxCheckBox.IsChecked == true) args.Add("-fsltx user.ltx");
+        if (DevCheckBox.IsChecked == true)
+            args.Add("-dev");
+        
+        if (ClearCacheCheckBox.IsChecked == true)
+        {
+            string shadersCachePath = Path.Combine(gameDirectory, "appdata", "shaders_cache");
+            if (!Directory.Exists(shadersCachePath))
+            {
+                try
+                {
+                    Directory.CreateDirectory(shadersCachePath); 
+                }
+                catch (Exception ex)
+                {
+                    var messageBox = MessageBoxManager
+                        .GetMessageBoxStandard("Ошибка", $"Ошибка: {ex.Message}");
+                    await messageBox.ShowAsync();
+                    return;
+                }
+            }
+            args.Add("-nocache");
+        }
+        if (ReloadSoundsCheckBox.IsChecked == true)
+            args.Add("-prefetch_sounds");
+        
+        if (DefaultUserLtxCheckBox.IsChecked == true)
+        {
+            string userLtxPath = Path.Combine(gameDirectory, "appdata", "user.ltx");
+            if (!File.Exists(userLtxPath))
+            {
+                var messageBox = MessageBoxManager
+                    .GetMessageBoxStandard("Ошибка", $"Файл user.ltx не найден по пути: {userLtxPath}\nРабочий каталог: {gameDirectory}");
+                await messageBox.ShowAsync();
+                return;
+            }
+            args.Add("-fsltx appdata\\user.ltx"); 
+        }
         
         try
         {
