@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Platform;
 
 namespace AvaLauncherStalker;
 
@@ -56,15 +59,16 @@ public partial class MainWindow : Window
         DataContext = this;
         RenderList();
         ShadowMapList();
+        ResolutionList();
     }
 
     private void RenderList()
     {
         RenderComboBox.ItemsSource = new List<string>
         {
+            "DirectX 8",
             "DirectX 9",
-            "DirectX 11",
-            "DirectX 12"
+            "DirectX 11"
         };
         RenderComboBox.SelectedIndex = 0;
     }
@@ -73,12 +77,21 @@ public partial class MainWindow : Window
     {
         ShadowMapComboBox.ItemsSource = new List<string>
         {
+            "1536",
             "2048",
-            "4096",
-            "8192"
+            "2560",
+            "3072",
+            "4096"
         };
         ShadowMapComboBox.SelectedIndex = 0;
     }
+    
+    private void ResolutionList()
+    {
+        ResolutionComboBox.ItemsSource = WindowManager.GetSupportedResolutions();
+        ResolutionComboBox.SelectedIndex = 0;
+    }
+    
     public class News
     {
         public string Title { get; set; }

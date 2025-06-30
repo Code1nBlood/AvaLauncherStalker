@@ -36,4 +36,13 @@
     <data name="ClearCacheCheckBox" xml:space="preserve">
         <value>Clear Shader Cache</value>
     </data>
+    <data name="SelectResolution" xml:space="preserve">
+        <value>Select Resolution:</value>
+    </data>
+    <data name="ReloadSoundsCheckBox" xml:space="preserve">
+        <value>Preload Sounds</value>
+    </data>
+    <data name="DefaultUserLtxCheckBox" xml:space="preserve">
+        <value>Restore Default user.ltx</value>
+    </data>
 </root>

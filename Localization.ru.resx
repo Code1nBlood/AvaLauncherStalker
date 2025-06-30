@@ -36,4 +36,13 @@
     <data name="ClearCacheCheckBox" xml:space="preserve">
         <value>Очистить Кэш Шейдера</value>
     </data>
+    <data name="SelectResolution" xml:space="preserve">
+        <value>Выберите разрешение:</value>
+    </data>
+    <data name="ReloadSoundsCheckBox" xml:space="preserve">
+        <value>Предзагрузить звуки</value>
+    </data>
+    <data name="DefaultUserLtxCheckBox" xml:space="preserve">
+        <value>Восстановить стандартные настройки user.ltx</value>
+    </data>
 </root>
