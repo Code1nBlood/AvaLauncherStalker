@@ -70,6 +70,7 @@ public partial class MainWindow : Window
         {
             "DirectX 8",
             "DirectX 9",
+            "DirectX 10",
             "DirectX 11"
         };
         RenderComboBox.SelectedIndex = 0;
