@@ -129,49 +129,100 @@ public partial class MainWindow : Window
         string exePath = Path.Combine(gameDirectory, "bin", exeName);
         var args = new List<string>();
         string resolution = ResolutionComboBox.SelectedItem?.ToString();
-        if (!string.IsNullOrWhiteSpace(resolution))
-            args.Add($"-r {resolution}");
+        string userLtxPath = Path.Combine(gameDirectory, "appdata", "user.ltx");
+        if (!string.IsNullOrWhiteSpace(resolution) && File.Exists(userLtxPath))
+        {
+            try
+            {
+                string[] lines = File.ReadAllLines(userLtxPath);
+                bool vidModeFound = false;
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (lines[i].StartsWith("vid_mode"))
+                    {
+                        lines[i] = $"vid_mode {resolution}";
+                        vidModeFound = true;
+                        break;
+                    }
+                }
+                if (!vidModeFound)
+                {
+                    Array.Resize(ref lines, lines.Length + 1);
+                    lines[lines.Length - 1] = $"vid_mode {resolution}";
+                }
+                File.WriteAllLines(userLtxPath, lines);
+            }
+            catch (Exception ex)
+            {
+                var messageBox = MessageBoxManager
+                    .GetMessageBoxStandard("Ошибка", $"Не удалось изменить user.ltx для установки разрешения: {ex.Message}");
+                await messageBox.ShowAsync();
+                return;
+            }
+        }
+
 
         string shadow = ShadowMapComboBox.SelectedItem?.ToString();
         if (!string.IsNullOrWhiteSpace(shadow))
-            args.Add($"-shadow {shadow}");
+            args.Add($"-smap{shadow}");
         
         if (DevCheckBox.IsChecked == true)
-            args.Add("-dev");
+            args.Add("-dbg");
         
         if (ClearCacheCheckBox.IsChecked == true)
         {
             string shadersCachePath = Path.Combine(gameDirectory, "appdata", "shaders_cache");
-            if (!Directory.Exists(shadersCachePath))
+            if (Directory.Exists(shadersCachePath))
             {
                 try
                 {
+                    Directory.Delete(shadersCachePath, true); 
                     Directory.CreateDirectory(shadersCachePath); 
                 }
                 catch (Exception ex)
                 {
                     var messageBox = MessageBoxManager
-                        .GetMessageBoxStandard("Ошибка", $"Ошибка: {ex.Message}");
+                        .GetMessageBoxStandard("Ошибка", $"Не удалось очистить папку shaders_cache по пути: {shadersCachePath}\nОшибка: {ex.Message}");
+                    await messageBox.ShowAsync();
+                    return;
+                }
+            }
+            else
+            {
+                try
+                {
+                    Directory.CreateDirectory(shadersCachePath);
+                }
+                catch (Exception ex)
+                {
+                    var messageBox = MessageBoxManager
+                        .GetMessageBoxStandard("Ошибка", $"Не удалось создать папку shaders_cache по пути: {shadersCachePath}\nОшибка: {ex.Message}");
                     await messageBox.ShowAsync();
                     return;
                 }
             }
             args.Add("-nocache");
         }
+
         if (ReloadSoundsCheckBox.IsChecked == true)
             args.Add("-prefetch_sounds");
         
         if (DefaultUserLtxCheckBox.IsChecked == true)
         {
-            string userLtxPath = Path.Combine(gameDirectory, "appdata", "user.ltx");
-            if (!File.Exists(userLtxPath))
+            if (File.Exists(userLtxPath))
             {
-                var messageBox = MessageBoxManager
-                    .GetMessageBoxStandard("Ошибка", $"Файл user.ltx не найден по пути: {userLtxPath}\nРабочий каталог: {gameDirectory}");
-                await messageBox.ShowAsync();
-                return;
+                try
+                {
+                    File.Delete(userLtxPath); 
+                }
+                catch (Exception ex)
+                {
+                    var messageBox = MessageBoxManager
+                        .GetMessageBoxStandard("Ошибка", $"Не удалось удалить файл user.ltx по пути: {userLtxPath}\nОшибка: {ex.Message}");
+                    await messageBox.ShowAsync();
+                    return;
+                }
             }
-            args.Add("-fsltx appdata\\user.ltx"); 
         }
         
         try
