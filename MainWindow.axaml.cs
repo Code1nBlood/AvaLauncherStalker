@@ -126,7 +126,7 @@ public partial class MainWindow : Window
             "DirectX 11" => useAvx ? "AnomalyDX11AVX.exe" : "AnomalyDX11.exe",
             _ => "AnomalyDX9.exe" // Default to DirectX 9 if no renderer is selected
         };
-        string exePath = Path.Combine(AppContext.BaseDirectory, "bin", exeName);
+        string exePath = Path.Combine(gameDirectory, "bin", exeName);
         var args = new List<string>();
         string resolution = ResolutionComboBox.SelectedItem?.ToString();
         if (!string.IsNullOrWhiteSpace(resolution))
