@@ -6,45 +6,50 @@
         </Border>
     </Design.PreviewWith>
     
-    <Style Selector="Button.LaunchButton">
-        <Setter Property="Padding" Value="10,5"/>
-        <Setter Property="MinWidth" Value="100"/>
-        <Setter Property="MinHeight" Value="30"/>
-        <Setter Property="Background" Value="#2B2B2B"/>
-        <Setter Property="Foreground" Value="#C0C0C0"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontFamily" Value="Consolas"/>
-        <Setter Property="BorderBrush" Value="#5A5A5A"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="CornerRadius" Value="2"/>
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Template">
 
+    <Style Selector="Button.language">
+        <Setter Property="Background" Value="#FF2A3A2E"/> 
+        <Setter Property="Foreground" Value="#FFDADADA"/> 
+        <Setter Property="BorderBrush" Value="#FF4A5A4E"/> 
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="CornerRadius" Value="4"/> 
+        <Setter Property="Padding" Value="10,5"/> 
+        <Setter Property="FontFamily" Value="Courier New, Monospace"/> 
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Template">
             <ControlTemplate TargetType="Button">
-                <Border Background="{TemplateBinding Background}"
+                <Border Name="PART_Border"
+                        Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}">
-
-                    <ContentPresenter
-                        Content="{TemplateBinding Content}"
-                        ContentTemplate="{TemplateBinding ContentTemplate}"
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     Padding="{TemplateBinding Padding}"/>
                 </Border>
             </ControlTemplate>
         </Setter>
     </Style>
     
-    <Style Selector="Button.LaunchButton:pointerover">
-        <Setter Property="Background" Value="#3D3D3D"/>
-        <Setter Property="BorderBrush" Value="#888888"/>
+    <Style Selector="Button.language:pointerover /template/ Border#PART_Border">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                    <GradientStop Color="#FF3B4A3E" Offset="0"/> 
+                    <GradientStop Color="#FF2A3A2E" Offset="1"/> 
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="#FF6A7A6E"/> 
+        <Setter Property="BoxShadow" Value="0 2 4 0 #FF1A2A1E"/> 
     </Style>
     
-    <Style Selector="Button.LaunchButton:pressed">
-        <Setter Property="Background" Value="#1F1F1F"/>
-        <Setter Property="BorderBrush" Value="#AA0000"/>
+    <Style Selector="Button.language:pressed /template/ Border#PART_Border">
+        <Setter Property="Background" Value="#FF1A2A1E"/> 
+        <Setter Property="BorderBrush" Value="#FF3A4A3E"/>
+        <Setter Property="BoxShadow" Value="inset 0 2 4 0 #FF0A1A0E"/> 
     </Style>
 
 
