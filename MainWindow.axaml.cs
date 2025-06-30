@@ -112,10 +112,14 @@ public partial class MainWindow : Window
     
     private async void LaunchButton_Click(object sender, RoutedEventArgs e)
     {
+        string launcherPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        string gameDirectory = launcherPath;
         string renderer = RenderComboBox.SelectedItem?.ToString();
         bool useAvx = AvxCheckBox.IsChecked == true;
         string exeName = renderer switch
         {
+
+
             "DirectX 8" => useAvx ? "AnomalyDX8AVX.exe" : "AnomalyDX8.exe",
             "DirectX 9" => useAvx ? "AnomalyDX9AVX.exe" : "AnomalyDX9.exe",
             "DirectX 10" => useAvx ? "AnomalyDX10AVX.exe" : "AnomalyDX10.exe",
@@ -143,7 +147,7 @@ public partial class MainWindow : Window
             {
                 FileName = exePath,
                 Arguments = string.Join(" ", args),
-                WorkingDirectory = Path.Combine(AppContext.BaseDirectory, "bin")
+                WorkingDirectory = gameDirectory
             };
             Process.Start(stalker);
         }
