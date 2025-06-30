@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -10,6 +11,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
+using MsBox.Avalonia;
 
 namespace AvaLauncherStalker;
 
@@ -106,6 +108,62 @@ public partial class MainWindow : Window
     private void SetEnglishLanguage(object sender, RoutedEventArgs e)
     {
         Localization.SetLanguage("en-US");
+    }
+    
+    private async void LaunchButton_Click(object sender, RoutedEventArgs e)
+    {
+        string launcherPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+        string gameDirectory = launcherPath;
+        string renderer = RenderComboBox.SelectedItem?.ToString();
+        bool useAvx = AvxCheckBox.IsChecked == true;
+        string exeName = renderer switch
+        {
+
+
+            "DirectX 8" => useAvx ? "AnomalyDX8AVX.exe" : "AnomalyDX8.exe",
+            "DirectX 9" => useAvx ? "AnomalyDX9AVX.exe" : "AnomalyDX9.exe",
+            "DirectX 10" => useAvx ? "AnomalyDX10AVX.exe" : "AnomalyDX10.exe",
+            "DirectX 11" => useAvx ? "AnomalyDX11AVX.exe" : "AnomalyDX11.exe",
+            _ => "AnomalyDX9.exe" // Default to DirectX 9 if no renderer is selected
+        };
+        string exePath = Path.Combine(gameDirectory, "bin", exeName);
+        var args = new List<string>();
+        string resolution = ResolutionComboBox.SelectedItem?.ToString();
+        if (!string.IsNullOrWhiteSpace(resolution))
+            args.Add($"-res {resolution}");
+
+        string shadow = ShadowMapComboBox.SelectedItem?.ToString();
+        if (!string.IsNullOrWhiteSpace(shadow))
+            args.Add($"-shadowmap {shadow}");
+        
+        if (DevCheckBox.IsChecked == true) args.Add("-dev");
+        if (ClearCacheCheckBox.IsChecked == true) args.Add("-nocache");
+        if (ReloadSoundsCheckBox.IsChecked == true) args.Add("-reload_sounds");
+        if (DefaultUserLtxCheckBox.IsChecked == true) args.Add("-fsltx user.ltx");
+        
+        try
+        {
+            var stalker = new ProcessStartInfo
+            {
+                FileName = exePath,
+                Arguments = string.Join(" ", args),
+                WorkingDirectory = gameDirectory
+            };
+            Process.Start(stalker);
+        }
+        catch (Exception ex)
+        {
+            var  messageBox = MessageBoxManager
+                .GetMessageBoxStandard("Ошибка", $"Произошла ошибка при запуске игры:\n{ex.Message}");
+            var res = await messageBox.ShowAsync();
+
+        }
+
+
+
+
+            
+
     }
 
 
