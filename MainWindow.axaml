@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaLauncherStalker.MainWindow"
         x:DataType="model:MainWindow"
-        Title="AvaLauncherStalker v1.0">
+        Title="AvaLauncherStalker v1.1">
   
   <Window.Styles>
     <StyleInclude Source="Styles.axaml"/>
@@ -55,15 +55,20 @@
                Width="50" Height="50" 
                HorizontalAlignment="Center" 
                Margin="5"/>
-        <Button Name="LaunchButton" Content="Запуск" Margin="0,20,0,10"
-                Classes="LaunchButton"/>
-        <TextBlock Text="Выберите DX рендер:" Foreground="White" Margin="0,10,0,5"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+          <Button Content="RUS" Click="SetRussianLanguage" Margin="5"/>
+          <Button Content="ENG" Click="SetEnglishLanguage" Margin="5"/>
+        </StackPanel>
+        <Button Name="LaunchButton" Content="{Binding Localization[LaunchButton]}" Margin="0,20,0,10"
+                Classes="LaunchButton"
+                />
+        <TextBlock Text="{Binding Localization[SelectDxRender]}" Foreground="White" Margin="0,10,0,5"/>
         <ComboBox Name="RenderComboBox" HorizontalAlignment="Stretch"/>
-        <TextBlock Text="Выберите разрешение карты теней:" Foreground="White" Margin="0,10,0,5"/>
+        <TextBlock Text="{Binding Localization[SelectShadowMap]}" Foreground="White" Margin="0,10,0,5"/>
         <ComboBox Name="ShadowMapComboBox" HorizontalAlignment="Stretch"/>
-        <CheckBox Name="DevCheckBox" Content="Включить режим Отладки" Foreground="White" Margin="0,10,0,5"></CheckBox>
-        <CheckBox Name="AvxCheckBox" Content="Поддержка AVX" Foreground="White" Margin="0,10,0,5"></CheckBox>
-        <CheckBox Name="ClearCacheCheckBox" Content="Очиситить Кэш Шейдера" Foreground="White" Margin="0,10,0,5"></CheckBox>
+        <CheckBox Name="DevCheckBox" Content="{Binding Localization[DevCheckBox]}" Foreground="White" Margin="0,10,0,5"></CheckBox>
+        <CheckBox Name="AvxCheckBox" Content="{Binding Localization[AvxCheckBox]}" Foreground="White" Margin="0,10,0,5"></CheckBox>
+        <CheckBox Name="ClearCacheCheckBox" Content="{Binding Localization[ClearCacheCheckBox]}" Foreground="White" Margin="0,10,0,5"></CheckBox>
       </StackPanel>
     </Border>
   </Grid>
