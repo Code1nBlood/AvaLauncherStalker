@@ -14,12 +14,15 @@ public partial class MainWindow : Window
     public LocalizationBoss Localization => LocalizationBoss.Instance;
     public MainWindow()
     {
-        if (File.Exists("news.json"))
+        if (File.Exists("Resources/news.json"))
         {
-            string json = File.ReadAllText("news.json");
-            NewsList = JsonSerializer.Deserialize<ObservableCollection<News>>(json);
+            string json = File.ReadAllText("Resources/news.json");
+            NewsList = JsonSerializer.Deserialize<ObservableCollection<News>>(json) ?? new ObservableCollection<News>();
         }
-        
+        else
+        {
+            NewsList.Add(new News { Title = "Ошибка", Content = "Файл news.json не найден" });
+        }
         
         InitializeComponent();
         DataContext = this;
