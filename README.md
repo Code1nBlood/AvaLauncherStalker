@@ -34,7 +34,8 @@
 # EN
 # 🎮 Anomaly Launcher
 
-A custom launcher for **S.T.A.L.K.E.R. Anomaly**.
+A custom launcher for **S.T.A.L.K.E.R. Anomaly**.![Снимок экрана 2025-07-01 004739](https://github.com/user-attachments/assets/dcdae428-3847-4283-a5c5-eb44c59dafcd)
+
 
 ---
 
@@ -63,3 +64,4 @@ Simply run `AnomalyLauncher.exe`.
 ## 📌 Compatibility
 
 - Anomaly 1.5.2 and 1.5.3
+![Снимок экрана 2025-07-01 004739](https://github.com/user-attachments/assets/f2ed58d1-ff6e-48c9-b2f9-1dd253113ba9)
