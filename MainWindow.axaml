@@ -8,6 +8,10 @@
         x:DataType="model:MainWindow"
         Title="AvaLauncherStalker v1.0">
   
+  <Window.Styles>
+    <StyleInclude Source="Styles.axaml"/>
+  </Window.Styles>
+  
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />        
@@ -27,9 +31,8 @@
     </Border>
           
     <Grid Grid.Column="0" Grid.Row="1">
-      <Image Source="images/OIP.jpg"
-             Stretch="UniformToFill"
-             IsHitTestVisible="False"/>
+      <Image Source="images/stalker2-img2.jpg"
+             Stretch="UniformToFill"/>
           <ScrollViewer>
             <ItemsControl ItemsSource="{Binding NewsList}">
               <ItemsControl.ItemTemplate>
@@ -52,7 +55,8 @@
                Width="50" Height="50" 
                HorizontalAlignment="Center" 
                Margin="5"/>
-        <Button Name="LaunchButton" Content="Запуск" Margin="0,20,0,10"/>
+        <Button Name="LaunchButton" Content="Запуск" Margin="0,20,0,10"
+                Classes="LaunchButton"/>
         <TextBlock Text="Выберите DX рендер:" Foreground="White" Margin="0,10,0,5"/>
         <ComboBox Name="RenderComboBox" HorizontalAlignment="Stretch"/>
         <TextBlock Text="Выберите разрешение карты теней:" Foreground="White" Margin="0,10,0,5"/>
