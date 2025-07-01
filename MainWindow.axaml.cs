@@ -56,12 +56,29 @@ public partial class MainWindow : Window
         {
             NewsList.Add(new News { Title = "Ошибка", Content = "news.json не найден ни на диске, ни в ресурсах" });
         }
+        var settings = SettingsApp.Load();
+        
+        if (!string.IsNullOrWhiteSpace(settings.LanguageCode))
+        {
+            LocalizationBoss.Instance.SetLanguage(settings.LanguageCode);
+        }
         
         InitializeComponent();
         DataContext = this;
         RenderList();
         ShadowMapList();
         ResolutionList();
+
+        RenderComboBox.SelectedItem = settings.Renderer;
+        ResolutionComboBox.SelectedItem = settings.Resolution;
+        ShadowMapComboBox.SelectedItem = settings.ShadowMap;
+        AvxCheckBox.IsChecked = settings.UseAvx;
+        DevCheckBox.IsChecked = settings.DevMode;
+        ClearCacheCheckBox.IsChecked = settings.ClearCache;
+        ReloadSoundsCheckBox.IsChecked = settings.ReloadSounds;
+        DefaultUserLtxCheckBox.IsChecked = settings.UseDefaultUserLtx;
+        
+
     }
 
     private void RenderList()
@@ -100,6 +117,54 @@ public partial class MainWindow : Window
         public string Title { get; set; }
         public string Content { get; set; }
     }
+    
+    public class LauncherSettings
+    {
+        public string? Renderer { get; set; }
+        public string? Resolution { get; set; }
+        public string? ShadowMap { get; set; }
+        public bool UseAvx { get; set; }
+        public bool DevMode { get; set; }
+        public bool ClearCache { get; set; }
+        public bool ReloadSounds { get; set; }
+        public bool UseDefaultUserLtx { get; set; }
+        public string? LanguageCode { get; set; }
+    }
+    
+    public static class SettingsApp
+    {
+        private static readonly string ConfigDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "AvaLauncherStalker");
+
+        private static readonly string SettingsFile = Path.Combine(ConfigDir, "userOptions.json");
+
+        public static void Save(LauncherSettings settings)
+        {
+            Directory.CreateDirectory(ConfigDir);
+            var json = JsonSerializer.Serialize(settings, new JsonSerializerOptions{});
+            File.WriteAllText(SettingsFile, json);
+        }
+
+        public static LauncherSettings Load()
+        {
+            if (!File.Exists(SettingsFile)) return new LauncherSettings();
+
+            try
+            {
+                var json = File.ReadAllText(SettingsFile);
+                return JsonSerializer.Deserialize<LauncherSettings>(json) ?? new LauncherSettings();
+            }
+            catch
+            {
+                return new LauncherSettings();
+            }
+        }
+        
+        
+    }
+    
+
     
     private void SetRussianLanguage(object sender, RoutedEventArgs e)
     {
@@ -235,6 +300,20 @@ public partial class MainWindow : Window
                 WorkingDirectory = gameDirectory
             };
             Process.Start(stalker);
+            var settings = new LauncherSettings
+            {
+                Renderer = RenderComboBox.SelectedItem?.ToString(),
+                Resolution = ResolutionComboBox.SelectedItem?.ToString(),
+                ShadowMap = ShadowMapComboBox.SelectedItem?.ToString(),
+                UseAvx = AvxCheckBox.IsChecked == true,
+                DevMode = DevCheckBox.IsChecked == true,
+                ClearCache = ClearCacheCheckBox.IsChecked == true,
+                ReloadSounds = ReloadSoundsCheckBox.IsChecked == true,
+                UseDefaultUserLtx = DefaultUserLtxCheckBox.IsChecked == true
+            };
+
+            SettingsApp.Save(settings);
+
         }
         catch (Exception ex)
         {

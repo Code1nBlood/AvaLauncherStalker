@@ -15,5 +15,8 @@ public class LocalizationBoss :ReactiveObject
     {
         _currentCulture = new CultureInfo(languageCode);
         this.RaisePropertyChanged(string.Empty);
+        var settings = MainWindow.SettingsApp.Load();
+        settings.LanguageCode = languageCode;
+        MainWindow.SettingsApp.Save(settings);
     }
 }
