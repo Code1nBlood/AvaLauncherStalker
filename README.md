@@ -11,6 +11,7 @@
 
 - Выбор рендера: **DirectX 8 / 9 / 10 / 11**
 - Выбор локализации
+- Просмотр скриншотов игры
 - Автоматический выбор нужного `.exe` с учётом **AVX**
 - Настройка разрешения и качества теней
 - Опции запуска:
@@ -46,6 +47,7 @@ A custom launcher for **S.T.A.L.K.E.R. Anomaly**.![image](https://github.com/use
 
 - Renderer selection: **DirectX 8 / 9 / 10 / 11**
 - Localization selection
+- Viewing screenshots of the game
 - Automatically chooses the correct `.exe` based on **AVX** support
 - Resolution and shadow quality settings
 - Launch options:
