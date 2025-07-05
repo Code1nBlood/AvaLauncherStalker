@@ -3,6 +3,8 @@
 
 Кастомный лаунчер для игры **S.T.A.L.K.E.R. Anomaly**.
 ![image](https://github.com/user-attachments/assets/baf5afd4-522c-4726-a974-45a9fd84ea60)
+---
+![image](https://github.com/user-attachments/assets/5eb7de8f-9bf2-410d-b469-7245c71c24ca)
 
 
 ---
@@ -38,6 +40,9 @@
 # 🎮 Anomaly Launcher
 
 A custom launcher for **S.T.A.L.K.E.R. Anomaly**.![image](https://github.com/user-attachments/assets/957e6b45-39e6-4400-bf42-82885ff63075)
+---
+![image](https://github.com/user-attachments/assets/b1b7e579-715d-4cc9-9431-c37740a56ef1)
+
 
 
 
