@@ -74,6 +74,12 @@
         <CheckBox Name="ClearCacheCheckBox" Content="{Binding Localization[ClearCacheCheckBox]}" Foreground="White" Margin="0,10,0,5"></CheckBox>
         <CheckBox Name="ReloadSoundsCheckBox" Content="{Binding Localization[ReloadSoundsCheckBox]}" Foreground="White" Margin="0,10,0,5"/>
         <CheckBox Name="DefaultUserLtxCheckBox" Content="{Binding Localization[DefaultUserLtxCheckBox]}" Foreground="White" Margin="0,10,0,5"/>
+        <Button Name="OpenScreenshotsButton" Classes="language" Click="OpenScreenshotsWindow" Width="200" Height="70" Margin="20">
+          <TextBlock Text="{Binding Localization[OpenScreenshotsButton]}"
+                     TextWrapping="Wrap"
+                     TextAlignment="Center"
+                     />   
+        </Button>
       </StackPanel>
     </Border>
   </Grid>

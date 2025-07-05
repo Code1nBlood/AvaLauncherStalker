@@ -45,4 +45,8 @@
     <data name="DefaultUserLtxCheckBox" xml:space="preserve">
         <value>Восстановить стандартные настройки user.ltx</value>
     </data>
+    <data name="OpenScreenshotsButton" xml:space="preserve">
+        <value>Посмотреть последние 6 скриншотов</value>
+    </data>
+    
 </root>

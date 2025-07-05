@@ -163,7 +163,11 @@ public partial class MainWindow : Window
         
         
     }
-    
+    private void OpenScreenshotsWindow(object? sender, RoutedEventArgs e)
+    {
+        var window = new ScreenshotWindow();
+        window.Show();
+    }
 
     
     private void SetRussianLanguage(object sender, RoutedEventArgs e)

@@ -45,4 +45,7 @@
     <data name="DefaultUserLtxCheckBox" xml:space="preserve">
         <value>Restore Default user.ltx</value>
     </data>
+    <data name="OpenScreenshotsButton" xml:space="preserve">
+        <value>View last 6 screenshots</value>
+    </data>
 </root>
